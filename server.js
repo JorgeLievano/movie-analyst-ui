@@ -25,11 +25,15 @@ app.get('/movies', function(req, res){
   request
     .get('http://'+backendHost+':3000/movies')
     .end(function(err, data) {
-      if(data.status == 403){
-        res.send(403, '403 Forbidden');
-      } else {
-        var movies = data.body;
-        res.render('movies', { movies: movies} );
+      try {
+        if(data.status == 403){
+          res.send(403, '403 Forbidden');
+        } else {
+          var movies = data.body;
+          res.render('movies', { movies: movies } );
+        } 
+      } catch (error) {
+        console.log(error);
       }
     })
 })
@@ -41,11 +45,15 @@ app.get('/authors', function(req, res){
     .get('http://'+backendHost+':3000/reviewers')
     .set('Authorization', 'Bearer ' + req.access_token)
     .end(function(err, data) {
+      try {
       if(data.status == 403){
         res.send(403, '403 Forbidden');
       } else {
         var authors = data.body;
-        res.render('authors', {authors : authors});
+        res.render('authors', { authors: authors });
+      } 
+      } catch (error) {
+        console.log(error);
       }
     })
 })
@@ -54,11 +62,15 @@ app.get('/publications', function(req, res){
   request
     .get('http://'+backendHost+':3000/publications')
     .end(function(err, data) {
-      if(data.status == 403){
-        res.send(403, '403 Forbidden');
-      } else {
-        var publications = data.body;
-        res.render('publications', {publications : publications});
+      try {
+        if(data.status == 403){
+          res.send(403, '403 Forbidden');
+        } else {
+          var publications = data.body;
+          res.render('publications', { publications: publications });
+        } 
+      } catch (error) {
+        console.log(error);
       }
     })
 })
@@ -68,8 +80,12 @@ app.get('/pending', function(req, res){
   request
     .get('http://'+backendHost+':3000/pending')
     .end(function(err, data) {
-      if(data.status == 403){
-        res.send(403, '403 Forbidden');
+      try {
+        if(data.status == 403){
+          res.send(403, '403 Forbidden');
+        } 
+      } catch (error) {
+        console.log(error);
       }
     })
 })
